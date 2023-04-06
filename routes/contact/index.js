@@ -77,6 +77,32 @@ router.post('/delete', async (req, res) => {
    }
 })
 
+// delete contact
+
+
+router.post('/deleteMultiple', async (req, res) => { 
+     
+     try{
+         const contactDataList=req.body;
+
+          const  result= await ContactModel.deleteMany({ _id:{$in:contactDataList}});
+       
+          console.log(result);
+         
+         if(result!=null){
+            res.send( {contacts:result,status:'200',message:'List of Contact Deleted.'} );
+         }else{
+             res.send( { status:'404',message:'No Contact found to delete.'} );
+         }
+    }catch (error) { 
+         console.log(error)
+         res.send({status:'404',message:'Something wrong with contact data.'});
+ 
+    }
+ })// delete contact
+
+
+ 
 
 
 
